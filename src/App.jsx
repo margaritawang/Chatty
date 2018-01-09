@@ -45,6 +45,8 @@ class App extends Component {
       content: content
     };
 
+    this.socket.send(JSON.stringify(newMessage));
+
     this.setState({
       messages: this.state.messages.concat(newMessage)
     });
