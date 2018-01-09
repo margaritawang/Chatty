@@ -4,6 +4,11 @@ import Chatbar from './Chatbar.jsx';
 import MessageList from './MessageList.jsx';
 
 
+
+// exampleSocket.onopen = (event) => {
+//   exampleSocket.send('ok');
+// }
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +64,8 @@ class App extends Component {
 
   componentDidMount() {
     console.log('ComponentDidMount <app />');
+    this.socket = new WebSocket('ws://localhost:3001');
+    console.log('Connected to server');
     setTimeout(() => {
       console.log('Simulating incoming message');
 
