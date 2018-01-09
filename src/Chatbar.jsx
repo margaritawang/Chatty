@@ -15,7 +15,8 @@ class Chatbar extends Component {
               placeholder="Type a message and hit ENTER"
               onKeyPress={(event) => {
                 if (event.key === 'Enter') {
-                  this.props.addMessage(this.props.currentUser, event.target.value)
+                  this.props.addMessage(this.props.currentUser, event.target.value);
+                  event.target.value = "";
                 }
               }}/>
           </footer>
