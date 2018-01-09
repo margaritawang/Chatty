@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: 'Yewyew'},
+      currentUser: {name: 'Margarita'},
       messages: [{
         id: 1,
         user: 'Amy',
@@ -32,10 +32,10 @@ class App extends Component {
     };
   }
 
-  addMessage(content) {
+  addMessage(user, content) {
     const newMessage = {
       id: Math.random(),
-      user: 'Yuyumeer',
+      user: user,
       type: 'chat',
       content: content
     };
@@ -52,9 +52,25 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages={this.state.messages} />
-        <Chatbar addMessage={this.addMessage.bind(this)} />
+        <Chatbar currentUser={this.state.currentUser.name} addMessage={this.addMessage.bind(this)} />
       </div>
     );
+  }
+
+  componentDidMount() {
+    console.log('ComponentDidMount <app />');
+    setTimeout(() => {
+      console.log('Simulating incoming message');
+
+      const newMessage = {
+        id: Math.random(),
+        user: 'yewsi',
+        type: 'chat',
+        content: 'I am yuyumeer'
+      };
+
+      this.setState({messages: this.state.messages.concat(newMessage)});
+    }, 3000);
   }
 }
 
