@@ -48,19 +48,27 @@ class App extends Component {
 
     this.socket.send(JSON.stringify(newMessage));
     
-    this.socket.onmessage = ((event)=> {
-      // console.log(JSON.parse(event.data));
-      this.setState({
-        messages: this.state.messages.concat(JSON.parse(event.data))
-      });
-    })
+    // this.socket.onmessage = ((event)=> {
+    //   // console.log(JSON.parse(event.data));
+    //   this.setState({
+    //     messages: this.state.messages.concat(JSON.parse(event.data))
+    //   });
+    // })
     
   }
 
-  changeUser(user) {
-    this.socket.send(user);
+  changeUser(oldName, newName) {
+    const msg = {
+      type: 'system',
+      content: `${oldName} changed their name to ${newName}`
+    };
+
+    this.socket.send(JSON.stringify(msg));
     this.socket.onmessage = ((event) => {
-      this.setState({currentUser:{name: user}});
+      this.setState({
+        messages: this.state.messages.concat(JSON.parse(event.data))
+      });
+      this.setState({currentUser:{name: newName}});
     })
   }
 
@@ -82,6 +90,12 @@ class App extends Component {
   componentDidMount() {
     console.log('ComponentDidMount <app />');
     this.socket = new WebSocket('ws://localhost:3001');
+    this.socket.onmessage = ((event)=> {
+      // console.log(JSON.parse(event.data));
+      this.setState({
+        messages: this.state.messages.concat(JSON.parse(event.data))
+      });
+    })
     console.log('Connected to server');
     setTimeout(() => {
       console.log('Simulating incoming message');
