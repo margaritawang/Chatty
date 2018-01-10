@@ -22,6 +22,17 @@ wss.broadcast = function broadcast(data) {
 wss.on('connection', (ws)=> {
   console.log('Client connected');
   console.log(wss.clients.size);
+  wss.clients.forEach(function each(client) {
+    console.log('sending to client');
+    console.log(wss.clients.size.toString());
+    const message = {
+      type: 'user',
+      content: 'A user has joined the channel',
+      activeuser: wss.clients.size
+    }
+    client.send(JSON.stringify(message));
+  })
+
   ws.on('message', (message) => {
     message = JSON.parse(message);
     if (message.type === 'chat') {

@@ -12,7 +12,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: 'Margarita'},
+      currentUser: {name: 'Anonymous'},
+      activeUser : 1,
       messages: [
       //   {
       //   id: 1,
@@ -68,6 +69,7 @@ class App extends Component {
         messages: this.state.messages.concat(JSON.parse(event.data))
       });
       this.setState({currentUser:{name: newName}});
+      
     })
   }
 
@@ -79,7 +81,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
-          <span>Hi</span>
+          <span>{this.state.activeUser} users online</span>
         </nav>
         <MessageList messages={this.state.messages} />
         <Chatbar currentUser={this.state.currentUser.name} addMessage={this.addMessage.bind(this)} changeUser={this.changeUser.bind(this)}/>
@@ -95,6 +97,10 @@ class App extends Component {
       this.setState({
         messages: this.state.messages.concat(JSON.parse(event.data))
       });
+      if (JSON.parse(event.data).type === 'user') {
+        // console.log(JSON.parse(event.data));
+        this.setState({activeUser: JSON.parse(event.data).activeuser})
+      }
     })
     console.log('Connected to server');
     setTimeout(() => {

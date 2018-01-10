@@ -76,6 +76,16 @@ body {
   top: 0;
 }
 
+.navbar span {
+  display: block;
+  float: right;
+  font-weight: 500;
+  font-size: 18px;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+  text-decoration: none;
+}
 .navbar-brand {
   color: inherit;
   display: block;
