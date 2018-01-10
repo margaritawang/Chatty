@@ -14,44 +14,52 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: {name: 'Margarita'},
-      messages: [{
-        id: 1,
-        user: 'Amy',
-        type: 'chat',
-        content: "I won't be impressed with technology until I can download food."
-      }, {
-        id: 1.5,
-        type: 'system',
-        content: 'Anonymous1 changed their name to Bob'
-      }, {
-        id: 2,
-        user: 'Yuyumeer',
-        type: 'chat',
-        content: 'I am message 2'
-      }, {
-        id: 3,
-        user: 'Yuyumeer',
-        type: 'chat',
-        content: 'I love yewyew'
-      }]
+      messages: [
+      //   {
+      //   id: 1,
+      //   user: 'Amy',
+      //   type: 'chat',
+      //   content: "I won't be impressed with technology until I can download food."
+      // }, {
+      //   id: 1.5,
+      //   type: 'system',
+      //   content: 'Anonymous1 changed their name to Bob'
+      // }, {
+      //   id: 2,
+      //   user: 'Yuyumeer',
+      //   type: 'chat',
+      //   content: 'I am message 2'
+      // }, {
+      //   id: 3,
+      //   user: 'Yuyumeer',
+      //   type: 'chat',
+      //   content: 'I love yewyew'
+      // }
+    ]
     };
   }
 
   addMessage(user, content) {
     const newMessage = {
-      id: Math.random(),
       user: user,
       type: 'chat',
       content: content
     };
 
     this.socket.send(JSON.stringify(newMessage));
-
-    this.setState({
-      messages: this.state.messages.concat(newMessage)
-    });
+    
+    this.socket.onmessage = ((event)=> {
+      console.log(JSON.parse(event.data));
+      this.setState({
+        messages: this.state.messages.concat(JSON.parse(event.data))
+      });
+    })
+    
   }
 
+  
+
+  
   render() {
     return (
       <div>
