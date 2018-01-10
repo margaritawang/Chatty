@@ -12,7 +12,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: 'Anonymous'},
+      currentUser: {
+        name: 'Anonymous',
+        color: null
+      },
       activeUser : 1,
       messages: [
       //   {
@@ -39,25 +42,19 @@ class App extends Component {
     };
   }
 
-  addMessage(user, content) {
+  addMessage(user, color, content) {
     const newMessage = {
       user: user,
+      color: color,
       type: 'chat',
       content: content
     };
 
     this.socket.send(JSON.stringify(newMessage));
     
-    // this.socket.onmessage = ((event)=> {
-    //   // console.log(JSON.parse(event.data));
-    //   this.setState({
-    //     messages: this.state.messages.concat(JSON.parse(event.data))
-    //   });
-    // })
-    
   }
 
-  changeUser(oldName, newName) {
+  changeUser(oldName, newName, color) {
     const msg = {
       type: 'system',
       content: `${oldName} changed their name to ${newName}`
@@ -68,14 +65,14 @@ class App extends Component {
       this.setState({
         messages: this.state.messages.concat(JSON.parse(event.data))
       });
-      this.setState({currentUser:{name: newName}});
+      this.setState({currentUser:{
+        name: newName,
+        color: color
+      }});
       
     })
   }
-
-  
-
-  
+ 
   render() {
     return (
       <div>
@@ -84,7 +81,7 @@ class App extends Component {
           <span>{this.state.activeUser} users online</span>
         </nav>
         <MessageList messages={this.state.messages} />
-        <Chatbar currentUser={this.state.currentUser.name} addMessage={this.addMessage.bind(this)} changeUser={this.changeUser.bind(this)}/>
+        <Chatbar currentUser={this.state.currentUser} addMessage={this.addMessage.bind(this)} changeUser={this.changeUser.bind(this)}/>
       </div>
     );
   }
@@ -93,13 +90,19 @@ class App extends Component {
     console.log('ComponentDidMount <app />');
     this.socket = new WebSocket('ws://localhost:3001');
     this.socket.onmessage = ((event)=> {
-      // console.log(JSON.parse(event.data));
-      this.setState({
-        messages: this.state.messages.concat(JSON.parse(event.data))
-      });
-      if (JSON.parse(event.data).type === 'user') {
+      console.log(event.data);
+      if (event.data[0] === "#") {
+        this.setState({currentUser:{
+          name: this.state.currentUser.name,
+          color : event.data}});
+      } else if (JSON.parse(event.data).type === 'chat' || JSON.parse(event.data).type === 'system'){
+        this.setState({
+          messages: this.state.messages.concat(JSON.parse(event.data))
+        });
+        return;
+      } else if (JSON.parse(event.data).type === 'user') {
         // console.log(JSON.parse(event.data));
-        this.setState({activeUser: JSON.parse(event.data).activeuser})
+        this.setState({activeUser: JSON.parse(event.data).activeuser});
       }
     })
     console.log('Connected to server');

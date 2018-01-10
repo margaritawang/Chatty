@@ -11,6 +11,7 @@ const server = express()
 
 const wss = new SocketServer({server});
 
+const colors = ['#7FDBFF', '#39CCCC', '#85144b', '#F012BE'];
 wss.broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
@@ -21,7 +22,10 @@ wss.broadcast = function broadcast(data) {
 
 wss.on('connection', (ws)=> {
   console.log('Client connected');
-  console.log(wss.clients.size);
+  // console.log(wss.clients.size);
+  const color = colors[Math.floor(Math.random() * 4)];
+  console.log(color);
+  ws.send(color);
   wss.clients.forEach(function each(client) {
     console.log('sending to client');
     console.log(wss.clients.size.toString());

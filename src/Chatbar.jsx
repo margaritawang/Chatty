@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 class Chatbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: this.props.currentUser};
+    this.state = {value: this.props.currentUser.name};
 
     this.handlechange = this.handlechange.bind(this);
   }
@@ -25,7 +25,7 @@ class Chatbar extends Component {
               onChange={this.handlechange}
               onKeyPress={(event) =>{
                 if (event.key === 'Enter'){
-                  this.props.changeUser(this.props.currentUser, event.target.value);
+                  this.props.changeUser(this.props.currentUser.name, event.target.value, this.props.currentUser.color);
                 }
               }} />
             <input
@@ -33,7 +33,7 @@ class Chatbar extends Component {
               placeholder="Type a message and hit ENTER"
               onKeyPress={(event) => {
                 if (event.key === 'Enter') {
-                  this.props.addMessage(this.props.currentUser, event.target.value);
+                  this.props.addMessage(this.props.currentUser.name,this.props.currentUser.color, event.target.value);
                   event.target.value = "";
                 }
               }}/>
