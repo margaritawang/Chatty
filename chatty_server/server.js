@@ -11,16 +11,17 @@ const server = express()
 
 const wss = new SocketServer({server});
 
-// wss.broadcast = function broadcast(data) {
-//   wss.clients.forEach(function each(client) {
-//     if (client.readyState === WebSocket.OPEN) {
-//       client.send(data);
-//     }
-//   });
-// };
+wss.broadcast = function broadcast(data) {
+  wss.clients.forEach(function each(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
 
 wss.on('connection', (ws)=> {
   console.log('Client connected');
+  console.log(wss.clients.size);
   ws.on('message', (message) => {
     message = JSON.parse(message);
     if (message.type === 'chat') {
