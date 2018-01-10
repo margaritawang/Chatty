@@ -49,12 +49,19 @@ class App extends Component {
     this.socket.send(JSON.stringify(newMessage));
     
     this.socket.onmessage = ((event)=> {
-      console.log(JSON.parse(event.data));
+      // console.log(JSON.parse(event.data));
       this.setState({
         messages: this.state.messages.concat(JSON.parse(event.data))
       });
     })
     
+  }
+
+  changeUser(user) {
+    this.socket.send(user);
+    this.socket.onmessage = ((event) => {
+      this.setState({currentUser:{name: user}});
+    })
   }
 
   
@@ -67,7 +74,7 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages={this.state.messages} />
-        <Chatbar currentUser={this.state.currentUser.name} addMessage={this.addMessage.bind(this)} />
+        <Chatbar currentUser={this.state.currentUser.name} addMessage={this.addMessage.bind(this)} changeUser={this.changeUser.bind(this)}/>
       </div>
     );
   }
