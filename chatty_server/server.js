@@ -37,15 +37,15 @@ wss.on('connection', (ws)=> {
     message = JSON.parse(message);
     if (message.type === 'chat') {
       message.id = uuidv4();
-      console.log(message.id);
-      console.log(message);
+      // console.log(message.id);
+      // console.log(message);
       wss.clients.forEach(function each(client) {
         if (true) {
           client.send(JSON.stringify(message));
         }
       })
     } else {
-      console.log(message);
+      // console.log(message);
       wss.clients.forEach((client)=> {
         if (client.readyState === WebSocket.OPEN) {
           client.send(JSON.stringify(message));
