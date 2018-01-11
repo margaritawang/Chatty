@@ -3,11 +3,6 @@ import Chatbar from './Chatbar.jsx';
 import MessageList from './MessageList.jsx';
 
 
-
-// exampleSocket.onopen = (event) => {
-//   exampleSocket.send('ok');
-// }
-
 class App extends Component {
   constructor(props) {
     super(props);
