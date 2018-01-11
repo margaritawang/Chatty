@@ -17,28 +17,7 @@ class App extends Component {
         color: null
       },
       activeUser : 1,
-      messages: [
-      //   {
-      //   id: 1,
-      //   user: 'Amy',
-      //   type: 'chat',
-      //   content: "I won't be impressed with technology until I can download food."
-      // }, {
-      //   id: 1.5,
-      //   type: 'system',
-      //   content: 'Anonymous1 changed their name to Bob'
-      // }, {
-      //   id: 2,
-      //   user: 'Yuyumeer',
-      //   type: 'chat',
-      //   content: 'I am message 2'
-      // }, {
-      //   id: 3,
-      //   user: 'Yuyumeer',
-      //   type: 'chat',
-      //   content: 'I love yewyew'
-      // }
-    ]
+      messages: []
     };
   }
 
@@ -90,7 +69,7 @@ class App extends Component {
     console.log('ComponentDidMount <app />');
     this.socket = new WebSocket('ws://localhost:3001');
     this.socket.onmessage = ((event)=> {
-      console.log(event.data);
+      // console.log(event.data);
       if (event.data[0] === "#") {
         this.setState({currentUser:{
           name: this.state.currentUser.name,

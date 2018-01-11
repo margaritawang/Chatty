@@ -11,7 +11,7 @@ const server = express()
 
 const wss = new SocketServer({server});
 
-const colors = ['#7FDBFF', '#39CCCC', '#85144b', '#F012BE'];
+const colors = ['#7FDBFF', '#39CCCC', '#85144b', '#F012BE', '#FF851B', '#3D9970'];
 wss.broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
@@ -22,13 +22,11 @@ wss.broadcast = function broadcast(data) {
 
 wss.on('connection', (ws)=> {
   console.log('Client connected');
-  // console.log(wss.clients.size);
-  const color = colors[Math.floor(Math.random() * 4)];
+  const color = colors[Math.floor(Math.random() * 6)];
   console.log(color);
   ws.send(color);
   wss.clients.forEach(function each(client) {
     console.log('sending to client');
-    console.log(wss.clients.size.toString());
     const message = {
       type: 'user',
       content: 'A user has joined the channel',
@@ -39,23 +37,12 @@ wss.on('connection', (ws)=> {
 
   ws.on('message', (message) => {
     message = JSON.parse(message);
-    if (message.type === 'chat') {
-      message.id = uuidv4();
-      // console.log(message.id);
-      // console.log(message);
-      wss.clients.forEach(function each(client) {
+    message.id = uuidv4();
+    wss.clients.forEach(function each(client) {
         if (true) {
           client.send(JSON.stringify(message));
         }
-      })
-    } else {
-      // console.log(message);
-      wss.clients.forEach((client)=> {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(JSON.stringify(message));
-        }
-      })
-    }
+    })    
   });
 
 
