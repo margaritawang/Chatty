@@ -64,19 +64,29 @@ class App extends Component {
     console.log('ComponentDidMount <app />');
     this.socket = new WebSocket('ws://localhost:3001');
     this.socket.onmessage = ((event)=> {
-      // console.log(event.data);
-      if (event.data[0] === "#") {
+      const parsedData = JSON.parse(event.data);
+      
+      if (parsedData.color  && !this.state.currentUser.color) {
         this.setState({currentUser:{
           name: this.state.currentUser.name,
-          color : event.data}});
-      } else if (JSON.parse(event.data).type === 'chat' || JSON.parse(event.data).type === 'system'){
+          color : parsedData.color}});
+      }
+
+      if (parsedData.type){
         this.setState({
-          messages: this.state.messages.concat(JSON.parse(event.data))
+          messages: this.state.messages.concat(parsedData)
         });
-        return;
-      } else if (JSON.parse(event.data).type === 'user') {
-        // console.log(JSON.parse(event.data));
-        this.setState({activeUser: JSON.parse(event.data).activeuser});
+      } 
+      
+      if (parsedData.type === 'user') {
+        console.log(parsedData);
+        this.setState({
+          activeUser: parsedData.activeuser
+          // currentUser: {
+          //   name: this.state.currentUser.name,
+          //   color: this.state.currentUser.color},
+          // messages: this.state.messages  
+        });
       }
     })
     console.log('Connected to server');

@@ -65,13 +65,9 @@ function rendermsg(arr) {
 
 class Message extends Component {
   render() {
-    // console.log(this.props);
+    // console.log('message:',this.props);
     if (this.props.type === 'chat') {
-      // if (isPic(this.props.content)){
-
-      //   const url = isPic(this.props.content)[0];
-      //   const msg1 = isPic(this.props.content)[1];
-      //   const msg2 = isPic(this.props.content)[2];
+      
         return (
           <div className="message">
             <span className="message-username" style={{color: this.props.color}}>{this.props.user}</span>
@@ -80,15 +76,8 @@ class Message extends Component {
             </div>
           </div>
         );  
-      // } else {
-      //   return (
-      //     <div className="message">
-      //       <span className="message-username" style={{color: this.props.color}}>{this.props.user}</span>
-      //       <span className="message-content">{this.props.content}</span>
-      //     </div>
-      //   );
-      // }
     } else {
+      // console.log('system:',this.props);
       return (
         <div className="message system">
           {this.props.content}
