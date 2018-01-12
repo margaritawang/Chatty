@@ -5,8 +5,8 @@ A minimal web chatroom application that allows users to communicate with each ot
 
 ### Final Product
 
-!["Screenshot of chatroom"]()
-!["Screenshot of images"]()
+!["Screenshot of chatroom"](https://github.com/margaritawang/Chatty/blob/master/docs/Screenshot%20from%202018-01-12%2014-05-44.png)
+!["Screenshot of images in chat"](https://github.com/margaritawang/Chatty/blob/master/docs/Screenshot%20from%202018-01-12%2014-07-55.png)
 
 ### Usage
 
