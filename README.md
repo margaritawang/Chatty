@@ -5,16 +5,18 @@ A minimal web chatroom application that allows users to communicate with each ot
 
 ### Final Product
 
+!["Screenshot of chatroom"]()
+!["Screenshot of images"]()
 
 ### Usage
 
-In the project root directory install all dependencies using the npm install command.
+- In the project root directory install all dependencies using the npm install command.
 
-In the chatty_server folder install all dependencies needed for websockets using the npm install command.
+- In the chatty_server folder install all dependencies needed for websockets using the npm install command.
 
-Start the web servers in **both** the root directory and the chatty_server folder using npm start.
+- Start the web servers in **both** the root directory and the chatty_server folder using npm start.
 
-Open http://localhost:3000 in your browser.
+- Open http://localhost:3000 in your browser.
 
 
 ### Dependencies

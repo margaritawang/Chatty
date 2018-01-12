@@ -82,10 +82,6 @@ class App extends Component {
         console.log(parsedData);
         this.setState({
           activeUser: parsedData.activeuser
-          // currentUser: {
-          //   name: this.state.currentUser.name,
-          //   color: this.state.currentUser.color},
-          // messages: this.state.messages  
         });
       }
     })
@@ -95,9 +91,9 @@ class App extends Component {
 
       const newMessage = {
         id: Math.random(),
-        user: 'yewsi',
+        user: 'System',
         type: 'chat',
-        content: 'I am yuyumeer'
+        content: 'Welcome to Chatty!'
       };
 
       this.setState({messages: this.state.messages.concat(newMessage)});
