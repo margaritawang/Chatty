@@ -53,7 +53,6 @@ function rendermsg(arr) {
   }
 
   const message = content.map((element) => {
-    console.log(element);
     if (!isPic(element)) {
       return (<p>{element}</p>);
     } else {
@@ -65,7 +64,6 @@ function rendermsg(arr) {
 
 class Message extends Component {
   render() {
-    // console.log('message:',this.props);
     if (this.props.type === 'chat') {
       
         return (
@@ -77,7 +75,6 @@ class Message extends Component {
           </div>
         );  
     } else {
-      // console.log('system:',this.props);
       return (
         <div className="message system">
           {this.props.content}

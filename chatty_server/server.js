@@ -23,16 +23,13 @@ wss.broadcast = function broadcast(data) {
 wss.on('connection', (ws)=> {
   console.log('Client connected');
   const color = colors[Math.floor(Math.random() * 6)];
-  console.log(color);
   ws.send(JSON.stringify({color: color}));
   wss.clients.forEach(function each(client) {
-    console.log('sending to client');
     const message = {
       type: 'user',
       content: 'A user has joined the channel',
       activeuser: wss.clients.size
     }
-    console.log(message);
     client.send(JSON.stringify(message));
   })
 
@@ -50,14 +47,12 @@ wss.on('connection', (ws)=> {
   ws.on('close', (ws) => {
     console.log('Client disconnected');
     wss.clients.forEach(function each(client) {
-      console.log('sending to client');
       const message = {
         type: 'user',
         content: 'A user has left the channel',
         color: null,
         activeuser: wss.clients.size
       }
-      // console.log(message);
       client.send(JSON.stringify(message));
     });
   })

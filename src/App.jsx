@@ -61,7 +61,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('ComponentDidMount <app />');
     this.socket = new WebSocket('ws://localhost:3001');
     this.socket.onmessage = ((event)=> {
       const parsedData = JSON.parse(event.data);
@@ -79,7 +78,6 @@ class App extends Component {
       } 
       
       if (parsedData.type === 'user') {
-        console.log(parsedData);
         this.setState({
           activeUser: parsedData.activeuser
         });
@@ -87,8 +85,7 @@ class App extends Component {
     })
     console.log('Connected to server');
     setTimeout(() => {
-      console.log('Simulating incoming message');
-
+      
       const newMessage = {
         id: Math.random(),
         user: 'System',
