@@ -5,10 +5,10 @@ function isPic(string) {
     (string.startsWith('http://') ||
     string.startsWith('https://'))
     &&
-    (string.endsWith('.jpg') ||
-    string.endsWith('.gif') ||
-    string.endsWith('.png') ||
-    string.endsWith('.jpeg'))
+    (string.includes('.jpg') ||
+    string.includes('.gif') ||
+    string.includes('.png') ||
+    string.includes('.jpeg'))
   ) {
     return true;
   }
