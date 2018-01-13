@@ -28,6 +28,7 @@ wss.on('connection', (ws)=> {
     const message = {
       type: 'user',
       content: 'A user has joined the channel',
+      id: uuidv4(),
       activeuser: wss.clients.size
     }
     client.send(JSON.stringify(message));
